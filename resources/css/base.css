@@ -1,7 +1,6 @@
 /*html, body {padding: 0; margin: 0;
 }*/
 
-
 input[type=text], input[type=date], select {
 	width: 100%;
 	padding: 12px 20px;
@@ -78,11 +77,88 @@ div.container {
 	border-radius: 5px;
 	background-color: #f2f2f2;
 	padding: 20px;
-	font: 12px Arial, sans-serif;
+	font: 12px 'Roboto', sans-serif;
 }
 
-@media only screen and (max-width: 1450px) {
-	form .likert {
-		width: 77px;
+sub {
+	text-align: left;
+
+}
+
+.submission {
+	display: flex;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+}
+
+.form-submission {
+	/*text-transform: uppercase;*/
+	font-weight: 300;
+	font-size: 2em;
+
+}
+
+option[disabled] {
+	color: lightgray;
+}
+
+.button {
+	display: block;
+	background-color: #04AA6D;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+}
+
+.button a {
+	display:  flex;
+	flex-direction: row;
+	align-items: center;
+	text-decoration: none;
+	color: white;
+}
+
+.instruction {
+	font-weight: normal;
+	font-style: italic;
+}
+
+
+.button:hover {
+	background-color: #45a049;
+}
+
+.section {
+	margin-bottom: 30px;
+}
+
+@media screen and (min-width: 1050px) {
+	form .likert:before {
+		width: 77%;
 	}
 }
+
+@media screen and (max-width: 690px) {
+	.form-submission {
+		font-size: 2em;
+	}
+}
+
+@media screen and (max-width: 460px) {
+	form .likert:before {
+		width: 79%;
+	}
+}
+
+@media screen and (max-width: 375px) {
+	form .likert:before {
+		width: 79%;
+	}
+}
+
