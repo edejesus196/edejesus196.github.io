@@ -3,471 +3,491 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Self-Sufficiency Matrix</title>
 
-	<link rel="stylesheet" type="text/css" href="./resources/css/base.css">
+	<link rel="stylesheet" type="text/css" href="../static/styles/base.css">
+
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+	<script type="text/javascript" src="/static/scripts.js?u={{ last_updated }}"></script>
 </head>
+
 <body>
 	
 	<div class="container">
-		<form>
-			<h3>General Information</h3>
-			<label for="firstName">First Name</label>
-			<input type="text" name="firstName" placeholder="Your name.." required>
-			<label for="lasttName">Last Name</label>
-			<input type="text" name="lastName"  placeholder="Your last name.." required>
-			<label for="date">Date</label>
-			<input type="date" name="date" required>
-			<label for="program">Program</label>
-			<select name="program" required>
-				<option value="" disabled selected>Select program</option>
-				<option value="dhs">DHS</option>
-				<option value="wdss">WDSS</option>
-				<option value="supportive">Supportive</option>
-				<option value="wjp">WJP</option>
-			</select>
+		<form id="ssForm" action="{{ url_for('fetchdata') }}" method="post">
+			<div class="section residents-info">
+				<h3>Resident's Information</h3>
+				<label for="firstName">First Name</label>
+				<input type="text" name="firstName" placeholder="Your name.." required>
+				<label for="lasttName">Last Name</label>
+				<input type="text" name="lastName"  placeholder="Your last name.." required>
+				<label for="dob">Date of Birth</label>
+				<input type="date" name="dob" required>
+				<label for="date">Assessment Date</label>
+				<input type="date" name="date" required>
+				<label for="program">Program</label>
+				<select name="program" required>
+					<option value="" disabled selected>Select program</option>
+					<option value="dhs">DHS</option>
+					<option value="wdss">WDSS</option>
+					<option value="supportive">Supportive</option>
+					<option value="wjp">WJP</option>
+				</select>
+				<label for="house">House</label>
+				<select name="house" required>
+					<option value="" disabled selected>Select house</option>
+				</select>
+			</div>
+			
+				
 			<!-- <input type="text" name="program"> -->
-			<h3>Title goes here</h3>
-			<h4>Income</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="income" value="in-crisis"  title="No income." required>
-					<label>In Crisis <br> <sub>No income.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="income" value="vulnerable" title="Inadequate income and/or spontaneous or inappropriate spending." >
-					<label>Vulnerable <br> <sub>Inadequate income and/or spontaneous or inappropriate spending.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="income" value="safe" title="Can meet basic needs with subsidy; appropriate spending. " >
-					<label>Safe <br> <sub>Can meet basic needs with subsidy; appropriate spending.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="income" value="capacity" title="Can meet basic needs and manage debt without assistance. " >
-					<label>Building Capacity <br> <sub>Can meet basic needs and manage debt without assistance.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="income" value="empowered" title="Income is sufficient, well managed; has discretionary income and is able to save." >
-					<label>Empowered <br> <sub>Income is sufficient, well managed; has discretionary income and is able to save.</sub></label>
-				</li>
-			</ul>
+			<div class="section self-sufficiency">
+				<h3>Self-Sufficiency Assessment</h3>
+				<h4>Income</h4>
 
-		<!-- 	<label for="income-comments">Comments</label>
-			<input type="text" name="income-comments"> -->
-			<h4>Employment (Skip if Unemployable)</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="employment" value="in-crisis">
-					<label>In Crisis <br> <sub>No job.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="employment" value="vulnerable">
-					<label>Vulnerable<br> <sub>Temporary, part-time or seasonal; inadequate pay, no benefits. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="employment" value="safe">
-					<label>Safe<br> <sub>Employed full time; inadequate pay; few or no benefits. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="employment" value="capacity">
-					<label>Building Capacity<br> <sub>Employed full time with adequate pay and benefits.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="employment" value="empowered">
-					<label>Empowered<br> <sub>Maintains permanent employment with adequate income and benefits. </sub></label>
-				</li>
-			</ul>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="income" value="in-crisis"  title="No income." required>
+						<label>In Crisis <br> <sub>No income.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="income" value="vulnerable" title="Inadequate income and/or spontaneous or inappropriate spending." >
+						<label>Vulnerable <br> <sub>Inadequate income and/or spontaneous or inappropriate spending.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="income" value="safe" title="Can meet basic needs with subsidy; appropriate spending. " >
+						<label>Safe <br> <sub>Can meet basic needs with subsidy; appropriate spending.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="income" value="capacity" title="Can meet basic needs and manage debt without assistance. " >
+						<label>Building Capacity <br> <sub>Can meet basic needs and manage debt without assistance.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="income" value="empowered" title="Income is sufficient, well managed; has discretionary income and is able to save." >
+						<label>Empowered <br> <sub>Income is sufficient, well managed; has discretionary income and is able to save.</sub></label>
+					</li>
+				</ul>
+				<div class="line"></div>
 
-			<h4>Housing</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="housing" value="in-crisis" required>
-					<label>In Crisis<br> <sub>Homeless or threatened with eviction. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="housing" value="vulnerable">
-					<label>Vulnerable<br> <sub>In transitional, temporary or substandard housing; and/or current rent/mortgage payment is unaffordable (over 30% of income).</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="housing" value="safe">
-					<label>Safe<br> <sub>In stable housing that is safe but only marginally adequate. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="housing" value="capacity">
-					<label>Building Capacity<br> <sub>Household is in safe, adequate subsidized housing. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="housing" value="empowered">
-					<label>Empowered<br> <sub>Household is safe, adequate, unsubsidized housing. </sub></label>
-				</li>
-			</ul>
+			<!-- 	<label for="income-comments">Comments</label>
+				<input type="text" name="income-comments"> -->
+				<h4>Employment<span class="instruction">- Skip if Unemployable</span></h4>
+				<ul class="likert">
+					<li>
+						<input class="optional" type="radio" name="employment" value="in-crisis">
+						<label>In Crisis <br> <sub>No job.</sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="employment" value="vulnerable">
+						<label>Vulnerable<br> <sub>Temporary, part-time or seasonal; inadequate pay, no benefits. </sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="employment" value="safe">
+						<label>Safe<br> <sub>Employed full time; inadequate pay; few or no benefits. </sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="employment" value="capacity">
+						<label>Building Capacity<br> <sub>Employed full time with adequate pay and benefits.</sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="employment" value="empowered">
+						<label>Empowered<br> <sub>Maintains permanent employment with adequate income and benefits. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Food</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="Food" value="in-crisis" required>
-					<label>In Crisis<br> <sub>No food or means to prepare it. Relies to a significant degree on other sources of free or low-cost food. </sub></label></label>
-				</li>
-				<li>
-					<input type="radio" name="Food" value="vulnerable">
-					<label>Vulnerable<br> <sub>Household is on food stamps.</sub></label></label>
-				</li>
-				<li>
-					<input type="radio" name="Food" value="safe">
-					<label>Safe<br> <sub>Can meet basic food needs, but requires occasional assistance. </sub></label></label>
-				</li>
-				<li>
-					<input type="radio" name="Food" value="capacity">
-					<label>Building Capacity<br> <sub>Can meet basic food needs without assistance.  </sub></label></label>
-				</li>
-				<li>
-					<input type="radio" name="Food" value="empowered">
-					<label>Empowered<br> <sub>Can choose to purchase any food household desires. </sub></label></label>
-				</li>
-			</ul>
+				<h4>Housing</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="housing" value="in-crisis" required>
+						<label>In Crisis<br> <sub>Homeless or threatened with eviction. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="housing" value="vulnerable">
+						<label>Vulnerable<br> <sub>In transitional, temporary or substandard housing; and/or current rent/mortgage payment is unaffordable (over 30% of income).</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="housing" value="safe">
+						<label>Safe<br> <sub>In stable housing that is safe but only marginally adequate. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="housing" value="capacity">
+						<label>Building Capacity<br> <sub>Household is in safe, adequate subsidized housing. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="housing" value="empowered">
+						<label>Empowered<br> <sub>Household is safe, adequate, unsubsidized housing. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Childcare (Skip if no age appropriate children)</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="childcare" value="in-crisis">
-					<label>In Crisis<br> <sub>Needs childcare, but none is available/accessible and/or child is not eligible. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="childcare" value="vulnerable">
-					<label>Vulnerable<br> <sub>Childcare is unreliable or unaffordable, inadequate supervision is a problem for childcare that is available. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="childcare" value="safe">
-					<label>Safe<br> <sub>Affordable subsidized childcare is available, but limited.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="childcare" value="capacity">
-					<label>Building Capacity<br> <sub>Reliable, affordable childcare is available, no need for subsidies. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="childcare" value="empowered">
-					<label>Empowered<br> <sub>Able to select quality childcare of choice. </sub></label>
-				</li>
-			</ul>
+				<h4>Food</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="food" value="in-crisis" required>
+						<label>In Crisis<br> <sub>No food or means to prepare it. Relies to a significant degree on other sources of free or low-cost food. </sub></label></label>
+					</li>
+					<li>
+						<input type="radio" name="food" value="vulnerable">
+						<label>Vulnerable<br> <sub>Household is on food stamps.</sub></label></label>
+					</li>
+					<li>
+						<input type="radio" name="food" value="safe">
+						<label>Safe<br> <sub>Can meet basic food needs, but requires occasional assistance. </sub></label></label>
+					</li>
+					<li>
+						<input type="radio" name="food" value="capacity">
+						<label>Building Capacity<br> <sub>Can meet basic food needs without assistance.  </sub></label></label>
+					</li>
+					<li>
+						<input type="radio" name="food" value="empowered">
+						<label>Empowered<br> <sub>Can choose to purchase any food household desires. </sub></label></label>
+					</li>
+				</ul>
 
-			<h4>Adult Education / Literacy</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="adultEducation" value="in-crisis" required>
-					<label>In Crisis<br> <sub>Literacy problems and/or no high school diploma/GED are serious barriers to employment</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="adultEducation" value="vulnerable">
-					<label>Vulnerable<br> <sub>Enrolled in literacy and/or GED program and/or has sufficient command of English to where language is not a barrier to employment.  </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="adultEducation" value="safe">
-					<label>Safe<br> <sub>Has high school diploma/GED. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="adultEducation" value="capacity">
-					<label>Building Capacity<br> <sub>Needs additional education/training to improve employment situation and/or to resolve literacy problems to where they are able to function effectively in society.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="adultEducation" value="empowered">
-					<label>Empowered<br> <sub>Has completed education/training needed to become employable. No literacy problems. </sub></label>
-				</li>
-			</ul>
+				<h4>Childcare <span class="instruction">- Skip if no age appropriate children (ages 0-11)</span></h4>
+				<ul class="likert">
+					<li>
+						<input class="optional" type="radio" name="childcare" value="in-crisis">
+						<label>In Crisis<br> <sub>Needs childcare, but none is available/accessible and/or child is not eligible. </sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="childcare" value="vulnerable">
+						<label>Vulnerable<br> <sub>Childcare is unreliable or unaffordable, inadequate supervision is a problem for childcare that is available. </sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="childcare" value="safe">
+						<label>Safe<br> <sub>Affordable subsidized childcare is available, but limited.</sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="childcare" value="capacity">
+						<label>Building Capacity<br> <sub>Reliable, affordable childcare is available, no need for subsidies. </sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="childcare" value="empowered">
+						<label>Empowered<br> <sub>Able to select quality childcare of choice. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Legal</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="legal" value="in-crisis" required>
-					<label>In Crisis<br> <sub>Current outstanding tickets or warrants. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="legal" value="vulnerable">
-					<label>Vulnerable<br> <sub>Current charges/trial pending, noncompliance with probation/parole. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="legal" value="safe">
-					<label>Safe<br> <sub>Fully compliant with probation/parole terms.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="legal" value="capacity">
-					<label>Building Capacity<br> <sub>Has successfully completed probation/parole within past 12 months, no new charges filed. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="legal" value="empowered">
-					<label>Empowered<br> <sub>No active criminal justice involvement in more that 12 months and/or no felony criminal history. </sub></label>
-				</li>
-			</ul>
+				<h4>Adult Education / Literacy</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="adultEducation" value="in-crisis" required>
+						<label>In Crisis<br> <sub>Literacy problems and/or no high school diploma/GED are serious barriers to employment</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="adultEducation" value="vulnerable">
+						<label>Vulnerable<br> <sub>Enrolled in literacy and/or GED program and/or has sufficient command of English to where language is not a barrier to employment.  </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="adultEducation" value="safe">
+						<label>Safe<br> <sub>Has high school diploma/GED. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="adultEducation" value="capacity">
+						<label>Building Capacity<br> <sub>Needs additional education/training to improve employment situation and/or to resolve literacy problems to where they are able to function effectively in society.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="adultEducation" value="empowered">
+						<label>Empowered<br> <sub>Has completed education/training needed to become employable. No literacy problems. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Health Care</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="healthCare" value="in-crisis" required>
-					<label>In Crisis<br> <sub>No medical coverage with immediate need. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="healthCare" value="vulnerable">
-					<label>Vulnerable<br> <sub>No medical coverage and great difficulty accessing medical care when needed. Some household members may be in poor health. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="healthCare" value="safe">
-					<label>Safe<br> <sub>Some members (e.g. Children) have medical coverage. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="healthCare" value="capacity">
-					<label>Building Capacity<br> <sub>All members can get medical care when needed, but may strain budget. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="healthCare" value="empowered">
-					<label>Empowered<br> <sub>All members are covered by affordable, adequate health insurance. </sub></label>
-				</li>
-			</ul>
+				<h4>Legal</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="legal" value="in-crisis" required>
+						<label>In Crisis<br> <sub>Current outstanding tickets or warrants. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="legal" value="vulnerable">
+						<label>Vulnerable<br> <sub>Current charges/trial pending, noncompliance with probation/parole. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="legal" value="safe">
+						<label>Safe<br> <sub>Fully compliant with probation/parole terms.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="legal" value="capacity">
+						<label>Building Capacity<br> <sub>Has successfully completed probation/parole within past 12 months, no new charges filed. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="legal" value="empowered">
+						<label>Empowered<br> <sub>No active criminal justice involvement in more that 12 months and/or no felony criminal history. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Life Skills</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="lifeSkills" value="in-crisis" required>
-					<label>In Crisis<br> <sub>Unable to meet basic needs such as hygiene, food, activities of daily living.  </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="lifeSkills" value="vulnerable">
-					<label>Vulnerable<br> <sub>Can meet a few but not all needs of daily living without assistance.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="lifeSkills" value="safe">
-					<label>Safe<br> <sub>Can meet most but not all daily living needs without assistance.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="lifeSkills" value="capacity">
-					<label>Building Capacity<br> <sub>Able to meet all basic needs of daily living without assistance.  </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="lifeSkills" value="empowered">
-					<label>Empowered<br> <sub>Able to provide beyond basic needs of daily living for self and family. </sub></label>
-				</li>
-			</ul>
+				<h4>Health Care</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="healthCare" value="in-crisis" required>
+						<label>In Crisis<br> <sub>No medical coverage with immediate need. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="healthCare" value="vulnerable">
+						<label>Vulnerable<br> <sub>No medical coverage and great difficulty accessing medical care when needed. Some household members may be in poor health. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="healthCare" value="safe">
+						<label>Safe<br> <sub>Some members (e.g. Children) have medical coverage. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="healthCare" value="capacity">
+						<label>Building Capacity<br> <sub>All members can get medical care when needed, but may strain budget. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="healthCare" value="empowered">
+						<label>Empowered<br> <sub>All members are covered by affordable, adequate health insurance. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Mental Health</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="MentalHealth" value="in-crisis" required>
-					<label>In Crisis<br> <sub>Danger to self or others; recurring suicidal ideation; experiencing severe difficulty in day-to-day life due to psychological problems. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="MentalHealth" value="vulnerable">
-					<label>Vulnerable<br> <sub>Recurrent mental health symptoms that may affect behavior, but not a danger to self/others; persistent problems with functioning due to mental health symptoms. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="MentalHealth" value="safe">
-					<label>Safe<br> <sub>Mild symptoms may be present but are transient; only moderate difficulty in functioning due to mental health problems. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="MentalHealth" value="capacity">
-					<label>Building Capacity<br> <sub>Minimal symptoms that are expectable responses to life stressors; only slight impairment in functioning. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="MentalHealth" value="empowered">
-					<label>Empowered<br> <sub>Symptoms are absent or rare; good or superior functioning in wide range of activities; no more than every day problems or concerns</sub></label>
-				</li>
-			</ul>
+				<h4>Life Skills</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="lifeSkills" value="in-crisis" required>
+						<label>In Crisis<br> <sub>Unable to meet basic needs such as hygiene, food, activities of daily living.  </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="lifeSkills" value="vulnerable">
+						<label>Vulnerable<br> <sub>Can meet a few but not all needs of daily living without assistance.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="lifeSkills" value="safe">
+						<label>Safe<br> <sub>Can meet most but not all daily living needs without assistance.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="lifeSkills" value="capacity">
+						<label>Building Capacity<br> <sub>Able to meet all basic needs of daily living without assistance.  </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="lifeSkills" value="empowered">
+						<label>Empowered<br> <sub>Able to provide beyond basic needs of daily living for self and family. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Substance Abuse</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="substanceAbuse" value="in-crisis" required>
-					<label>In Crisis<br> <sub>Meets criteria for severe abuse/dependence; resulting problems so severe that institutional living or hospitalization may be necessary. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="substanceAbuse" value="vulnerable">
-					<label>Vulnerable<br> <sub>Meets criteria for dependence; preoccupation with use and/or obtaining drugs/alcohol; withdrawal or withdrawal avoidance behaviors evident; use results in avoidance or neglect of essential life activities. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="substanceAbuse" value="safe">
-					<label>Safe<br> <sub>Use within last 6 months; evidence of persistent or recurrent social, occupational, emotional or physical problems related to use (such as disruptive behavior or housing problems); problems have persisted for at least one month. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="substanceAbuse" value="capacity">
-					<label>Building Capacity<br> <sub>Client has used during last 6 months, but no evidence of persistent or recurrent social, occupational, emotional, or physical problems related to use; no evidence of recurrent dangerous use. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="substanceAbuse" value="empowered">
-					<label>Empowered<br> <sub>No drug use/alcohol abuse in last 6 months. </sub></label>
-				</li>
-			</ul>
+				<h4>Mental Health</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="MentalHealth" value="in-crisis" required>
+						<label>In Crisis<br> <sub>Danger to self or others; recurring suicidal ideation; experiencing severe difficulty in day-to-day life due to psychological problems. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="MentalHealth" value="vulnerable">
+						<label>Vulnerable<br> <sub>Recurrent mental health symptoms that may affect behavior, but not a danger to self/others; persistent problems with functioning due to mental health symptoms. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="MentalHealth" value="safe">
+						<label>Safe<br> <sub>Mild symptoms may be present but are transient; only moderate difficulty in functioning due to mental health problems. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="MentalHealth" value="capacity">
+						<label>Building Capacity<br> <sub>Minimal symptoms that are expectable responses to life stressors; only slight impairment in functioning. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="MentalHealth" value="empowered">
+						<label>Empowered<br> <sub>Symptoms are absent or rare; good or superior functioning in wide range of activities; no more than every day problems or concerns</sub></label>
+					</li>
+				</ul>
 
-			<h4>Family/Friends (social) Relations</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="familyFriends" value="in-crisis" required>
-					<label>In Crisis<br> <sub>Lack of necessary support form family or friends; abuse (DV, child) is present or there is child neglect. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="familyFriends" value="vulnerable">
-					<label>Vulnerable<br> <sub>Family/friends may be supportive, but lack ability or resources to help; family members do not relate well with one another; potential for abuse or neglect.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="familyFriends" value="safe">
-					<label>Safe<br> <sub>Some support from family/friends; family members acknowledge and seek to change negative behaviors; are learning to communicate and support</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="familyFriends" value="capacity">
-					<label>Building Capacity<br> <sub>Strong support from family or friends. Household members support each other’s efforts.  </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="familyFriends" value="empowered">
-					<label>Empowered<br> <sub>Has healthy/expanding support network; household is stable and communication is consistently open.</sub></label>
-				</li>
-			</ul>
+				<h4>Substance Abuse</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="substanceAbuse" value="in-crisis" required>
+						<label>In Crisis<br> <sub>Meets criteria for severe abuse/dependence; resulting problems so severe that institutional living or hospitalization may be necessary. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="substanceAbuse" value="vulnerable">
+						<label>Vulnerable<br> <sub>Meets criteria for dependence; preoccupation with use and/or obtaining drugs/alcohol; withdrawal or withdrawal avoidance behaviors evident; use results in avoidance or neglect of essential life activities. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="substanceAbuse" value="safe">
+						<label>Safe<br> <sub>Use within last 6 months; evidence of persistent or recurrent social, occupational, emotional or physical problems related to use (such as disruptive behavior or housing problems); problems have persisted for at least one month. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="substanceAbuse" value="capacity">
+						<label>Building Capacity<br> <sub>Client has used during last 6 months, but no evidence of persistent or recurrent social, occupational, emotional, or physical problems related to use; no evidence of recurrent dangerous use. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="substanceAbuse" value="empowered">
+						<label>Empowered<br> <sub>No drug use/alcohol abuse in last 6 months. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Mobility</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="mobility" value="in-crisis" required>
-					<label>In Crisis<br> <sub>No access to transportation, public or private; may have car that is inoperable.  </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="mobility" value="vulnerable">
-					<label>Vulnerable<br> <sub>Transportation is available, but unreliable, unpredictable, unaffordable; may have care but no insurance, license, etc.  </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="mobility" value="safe">
-					<label>Safe<br> <sub>Transportation is available and reliable, but limited and/or inconvenient; drivers are licensed and minimally insured.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="mobility" value="capacity">
-					<label>Building Capacity<br> <sub>Transportation is generally accessible to meet basic travel needs. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="mobility" value="empowered">
-					<label>Empowered<br> <sub>Transportation is readily available and affordable; car is adequately insured. </sub></label>
-				</li>
-			</ul>
+				<h4>Family/Friends (social) Relations</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="familyFriends" value="in-crisis" required>
+						<label>In Crisis<br> <sub>Lack of necessary support form family or friends; abuse (DV, child) is present or there is child neglect. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="familyFriends" value="vulnerable">
+						<label>Vulnerable<br> <sub>Family/friends may be supportive, but lack ability or resources to help; family members do not relate well with one another; potential for abuse or neglect.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="familyFriends" value="safe">
+						<label>Safe<br> <sub>Some support from family/friends; family members acknowledge and seek to change negative behaviors; are learning to communicate and support</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="familyFriends" value="capacity">
+						<label>Building Capacity<br> <sub>Strong support from family or friends. Household members support each other’s efforts.  </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="familyFriends" value="empowered">
+						<label>Empowered<br> <sub>Has healthy/expanding support network; household is stable and communication is consistently open.</sub></label>
+					</li>
+				</ul>
 
-			<h4>Parenting</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="Parenting" value="in-crisis" required>
-					<label>In Crisis<br> <sub>There are safety concerns regarding parenting skills. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="Parenting" value="vulnerable">
-					<label>Vulnerable<br> <sub>Parenting skills are minimal. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="Parenting" value="safe">
-					<label>Safe<br> <sub>Parenting skills are apparent but not adequate. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="Parenting" value="capacity">
-					<label>Building Capacity<br> <sub>Parenting skills are adequate. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="Parenting" value="empowered">
-					<label>Empowered<br> <sub>Parenting skills are well developed.</sub></label>
-				</li>
-			</ul>
+				<h4>Mobility</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="mobility" value="in-crisis" required>
+						<label>In Crisis<br> <sub>No access to transportation, public or private; may have car that is inoperable.  </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="mobility" value="vulnerable">
+						<label>Vulnerable<br> <sub>Transportation is available, but unreliable, unpredictable, unaffordable; may have care but no insurance, license, etc.  </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="mobility" value="safe">
+						<label>Safe<br> <sub>Transportation is available and reliable, but limited and/or inconvenient; drivers are licensed and minimally insured.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="mobility" value="capacity">
+						<label>Building Capacity<br> <sub>Transportation is generally accessible to meet basic travel needs. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="mobility" value="empowered">
+						<label>Empowered<br> <sub>Transportation is readily available and affordable; car is adequately insured. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Community Involvement (Club, Church, Team, Support Group, etc)</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="communityInvolvement" value="in-crisis" required>
-					<label>In Crisis<br> <sub>Not applicable due to crisis situation; in “survival” mode. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="communityInvolvement" value="vulnerable">
-					<label>Vulnerable<br> <sub>Socially isolated and/or no social skills and/or lacks motivation to become involved. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="communityInvolvement" value="safe">
-					<label>Safe<br> <sub>Lacks knowledge of ways to become involved.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="communityInvolvement" value="capacity">
-					<label>Building Capacity<br> <sub>Some community involvement (advisory group, support group), but has barriers such as transportation, childcare issues. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="communityInvolvement" value="empowered">
-					<label>Empowered<br> <sub>Actively involved in community. </sub></label>
-				</li>
-			</ul>
+				<h4>Parenting</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="Parenting" value="in-crisis" required>
+						<label>In Crisis<br> <sub>There are safety concerns regarding parenting skills. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="Parenting" value="vulnerable">
+						<label>Vulnerable<br> <sub>Parenting skills are minimal. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="Parenting" value="safe">
+						<label>Safe<br> <sub>Parenting skills are apparent but not adequate. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="Parenting" value="capacity">
+						<label>Building Capacity<br> <sub>Parenting skills are adequate. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="Parenting" value="empowered">
+						<label>Empowered<br> <sub>Parenting skills are well developed.</sub></label>
+					</li>
+				</ul>
 
-			<h4>Safety</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="safety" value="in-crisis" required>
-					<label>In Crisis<br> <sub>Home or residence is not safe; immediate level of lethality is extremely high; possible CPS involvement.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="safety" value="vulnerable">
-					<label>Vulnerable<br> <sub>Safety is threatened/temporary protection is available; level of lethality is high. </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="safety" value="safe">
-					<label>Safe<br> <sub>Current level of safety is minimally adequate; ongoing safety planning is essential.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="safety" value="capacity">
-					<label>Building Capacity<br> <sub>Environment is safe, however, future of such is uncertain; safety planning is important.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="safety" value="empowered">
-					<label>Empowered<br> <sub>Environment is apparently safe and stable. </sub></label>
-				</li>
-			</ul>
+				<h4>Community Involvement (Club, Church, Team, Support Group, etc)</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="communityInvolvement" value="in-crisis" required>
+						<label>In Crisis<br> <sub>Not applicable due to crisis situation; in “survival” mode. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="communityInvolvement" value="vulnerable">
+						<label>Vulnerable<br> <sub>Socially isolated and/or no social skills and/or lacks motivation to become involved. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="communityInvolvement" value="safe">
+						<label>Safe<br> <sub>Lacks knowledge of ways to become involved.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="communityInvolvement" value="capacity">
+						<label>Building Capacity<br> <sub>Some community involvement (advisory group, support group), but has barriers such as transportation, childcare issues. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="communityInvolvement" value="empowered">
+						<label>Empowered<br> <sub>Actively involved in community. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Credit (optional)</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="credit" value="in-crisis">
-					<label>In Crisis</label>
-				</li>
-				<li>
-					<input type="radio" name="credit" value="vulnerable">
-					<label>Vulnerable</label>
-				</li>
-				<li>
-					<input type="radio" name="credit" value="safe">
-					<label>Safe</label>
-				</li>
-				<li>
-					<input type="radio" name="credit" value="capacity">
-					<label>Building Capacity</label>
-				</li>
-				<li>
-					<input type="radio" name="credit" value="empowered">
-					<label>Empowered</label>
-				</li>
-			</ul>
+				<h4>Safety</h4>
+				<ul class="likert">
+					<li>
+						<input type="radio" name="safety" value="in-crisis" required>
+						<label>In Crisis<br> <sub>Home or residence is not safe; immediate level of lethality is extremely high; possible CPS involvement.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="safety" value="vulnerable">
+						<label>Vulnerable<br> <sub>Safety is threatened/temporary protection is available; level of lethality is high. </sub></label>
+					</li>
+					<li>
+						<input type="radio" name="safety" value="safe">
+						<label>Safe<br> <sub>Current level of safety is minimally adequate; ongoing safety planning is essential.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="safety" value="capacity">
+						<label>Building Capacity<br> <sub>Environment is safe, however, future of such is uncertain; safety planning is important.</sub></label>
+					</li>
+					<li>
+						<input type="radio" name="safety" value="empowered">
+						<label>Empowered<br> <sub>Environment is apparently safe and stable. </sub></label>
+					</li>
+				</ul>
 
-			<h4>Disabilities (optional)</h4>
-			<ul class="likert">
-				<li>
-					<input type="radio" name="disabilities" value="in-crisis">
-					<label>In Crisis<br> <sub>Acute or chronic symptoms affecting housing, employment, social interactions, etc</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="disabilities" value="vulnerable">
-					<label>Vulnerable<br> <sub>Sometimes or periodically has acute or chronic symptoms affecting housing, employment, social interactions, etc.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="disabilities" value="safe">
-					<label>Safe<br> <sub>Rarely has acute or chronic symptoms affecting housing, employment, social interactions, etc.</sub></label>
-				</li>
-				<li>
-					<input type="radio" name="disabilities" value="capacity">
-					<label>Building Capacity<br> <sub>Asymptomatic – condition controlled by services or medication  </sub></label>
-				</li>
-				<li>
-					<input type="radio" name="disabilities" value="empowered">
-					<label>Empowered<br> <sub>No identified disability. </sub></label>
-				</li>
-			</ul>
+				<h4>Credit <span class="instruction">- Optional</span></h4>
+				<ul class="likert">
+					<li>
+						<input class="optional" type="radio" name="credit" value="in-crisis">
+						<label>In Crisis</label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="credit" value="vulnerable">
+						<label>Vulnerable</label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="credit" value="safe">
+						<label>Safe</label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="credit" value="capacity">
+						<label>Building Capacity</label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="credit" value="empowered">
+						<label>Empowered</label>
+					</li>
+				</ul>
+
+				<h4>Disabilities <span class="instruction ">- Optional</span></h4>
+				<ul class="likert">
+					<li>
+						<input class="optional" type="radio" name="disabilities" value="in-crisis">
+						<label>In Crisis<br> <sub>Acute or chronic symptoms affecting housing, employment, social interactions, etc</sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="disabilities" value="vulnerable">
+						<label>Vulnerable<br> <sub>Sometimes or periodically has acute or chronic symptoms affecting housing, employment, social interactions, etc.</sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="disabilities" value="safe">
+						<label>Safe<br> <sub>Rarely has acute or chronic symptoms affecting housing, employment, social interactions, etc.</sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="disabilities" value="capacity">
+						<label>Building Capacity<br> <sub>Asymptomatic – condition controlled by services or medication  </sub></label>
+					</li>
+					<li>
+						<input class="optional" type="radio" name="disabilities" value="empowered">
+						<label>Empowered<br> <sub>No identified disability. </sub></label>
+					</li>
+				</ul>
+			</div>
+			
 
 
 			
 			
 			
 			
-			<input type="submit" value="Submit">
+			<input type="submit" value="Submit" onclick="getCurrentTime()" >
 			
 		</form>	
 	</div>
